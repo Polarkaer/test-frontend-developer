@@ -68,7 +68,6 @@ const App = () => {
         setDocumentData(data);
         compileHeaderList(data);
         compileCommentButtons(data);
-        console.log('data', data);
       })
       .catch(function () {
         // catch any errors
@@ -80,9 +79,7 @@ const App = () => {
       .then((resp) => { return resp.json() }) // Convert data to json
       .then((data) => {
         setActiveCommentId(prevState => {
-          console.log('data.content', data.content);
           if(prevState === null){
-            console.log('here');
             setCommentIsActive(true);
             setActiveComment(data.content);
             return (id);
@@ -134,7 +131,6 @@ const App = () => {
         ]
       )
       setCommentButtons(newCommentButtonsArr);
-      console.log('data', data);
     })
     .catch(function () {
       // catch any errors
@@ -142,7 +138,6 @@ const App = () => {
   }
 
   const updateComment = () => {
-    console.log('new comment text', activeComment);
     const dateNow = new Date();
     const bodyData = {
       "document": `/api/documents/${activeDocument}`,
@@ -158,7 +153,6 @@ const App = () => {
       body: JSON.stringify(bodyData)
     })
     .then((resp) => {
-      console.log(resp.status);
       getDocuments();
       resetCommentStates();
     })
@@ -168,10 +162,8 @@ const App = () => {
   }
 
   const deleteComment = (id) => {
-    console.log(id);
     fetch('http://api.edelmann.co.uk'+id, {method: 'DELETE'})
     .then((resp) => {
-      console.log(resp.status)
       getDocuments();
       resetCommentStates();
     })
